@@ -1,4 +1,4 @@
-package com.letscode.starwarsresistencesocialnetwork.model;
+package com.letscode.starwarsresistencesocialnetwork.model.dao;
 
 
 import javax.persistence.Entity;

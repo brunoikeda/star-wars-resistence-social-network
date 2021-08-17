@@ -1,16 +1,10 @@
-package com.letscode.starwarsresistencesocialnetwork.model;
+package com.letscode.starwarsresistencesocialnetwork.model.dao;
 
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,12 +18,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @JsonInclude(Include.NON_NULL)
-public class Rebelde {
+public class Recurso {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,23 +33,10 @@ public class Rebelde {
 	@JsonProperty("nome")
 	private String nome;
 	
-	@JsonProperty("idade")
-	private Integer idade;
+	@JsonProperty("quantidade")
+	private Integer quantidade;
 	
-	@JsonProperty("genero")
-	private String genero;
-	
-	@JsonProperty("traidor")
-	private Boolean traidor;
-	
-	@JsonProperty("localizacao")
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "localizacao", referencedColumnName = "id")
-	private Localizacao localizacao;
-	
-	@JsonProperty("recursos")
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
-	private List<Recurso> recursos;
-	
+	@JsonProperty("pontos")
+	private String pontos;
+
 }
