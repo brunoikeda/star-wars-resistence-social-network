@@ -48,7 +48,7 @@ public class RelatorioService {
 
 			String porcentTraidoresFinal = String.format("%.2f", porcentTraidores);
 
-			return porcentTraidoresFinal + "%";
+			return "# Porcentagem de traidores: " + porcentTraidoresFinal + "%\n";
 		}
 
 	}
@@ -62,11 +62,11 @@ public class RelatorioService {
 		} else {
 			Stream<Rebelde> rebeldes = rebeldesTotal.stream().filter(rebelde -> !rebelde.isTraidor());
 
-			double porcentTraidores = Double.valueOf(rebeldes.count()) / Double.valueOf(rebeldesTotal.size()) * 100;
+			double porcentRebeldes = Double.valueOf(rebeldes.count()) / Double.valueOf(rebeldesTotal.size()) * 100;
 			
-			String porcentTraidoresFinal = String.format("%.2f", porcentTraidores);
+			String porcentagemRebeldes = String.format("%.2f", porcentRebeldes);
 
-			return porcentTraidoresFinal + "%";
+			return "# Porcentagem de rebeldes: " + porcentagemRebeldes + "%\n";
 		}
 	}
 
@@ -77,7 +77,7 @@ public class RelatorioService {
 			throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
 		} else {
 			
-			String result = "Media de recursos por rebelde: \n";
+			String result = "# Media de recursos por rebelde: \n";
 			
 			double mediaArmas = rebeldesTotal.stream()
 					.filter(rebelde -> !rebelde.isTraidor())
@@ -85,28 +85,28 @@ public class RelatorioService {
 					.average()
 					.getAsDouble();
 			
-			result = result + "Armas: " + mediaArmas + "\n";
+			result = result + "   - Armas: " + mediaArmas + "\n";
 			
 			double mediaMunicao = rebeldesTotal.stream()
 					.filter(rebelde -> !rebelde.isTraidor())
 					.mapToDouble(rebelde -> rebelde.getRecursos().get("municao").getQuantidade())
 					.average()
 					.getAsDouble();
-			result = result + "Municao: " + mediaMunicao + "\n";
+			result = result + "   - Municao: " + mediaMunicao + "\n";
 			
 			double mediaAgua = rebeldesTotal.stream()
 					.filter(rebelde -> !rebelde.isTraidor())
 					.mapToDouble(rebelde -> rebelde.getRecursos().get("agua").getQuantidade())
 					.average()
 					.getAsDouble();
-			result = result + "Agua: " + mediaAgua + "\n";
+			result = result + "   - Agua: " + mediaAgua + "\n";
 			
 			double mediaComidas = rebeldesTotal.stream()
 					.filter(rebelde -> !rebelde.isTraidor())
 					.mapToDouble(rebelde -> rebelde.getRecursos().get("comida").getQuantidade())
 					.average()
 					.getAsDouble();
-			result = result + "Comida: " + mediaComidas + "\n";
+			result = result + "   - Comida: " + mediaComidas + "\n";
 			
 			return result;
 			
@@ -120,36 +120,36 @@ public class RelatorioService {
 			throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
 		} else {
 			
-			String result = "Pontos perdidos por traidores: \n";
+			String result = "# Pontos perdidos por traidores: \n";
 			
 			double mediaArmas = rebeldesTotal.stream()
 					.filter(rebelde -> rebelde.isTraidor())
 					.mapToDouble(rebelde -> rebelde.getRecursos().get("arma").getQuantidade())
 					.sum();
 			
-			result = result + "Armas: " + mediaArmas + "\n";
+			result = result + "   - Armas: " + mediaArmas + "\n";
 			
 			double mediaMunicao = rebeldesTotal.stream()
 					.filter(rebelde -> rebelde.isTraidor())
 					.mapToDouble(rebelde -> rebelde.getRecursos().get("municao").getQuantidade())
 					.sum();
-			result = result + "Municao: " + mediaMunicao + "\n";
+			result = result + "   - Municao: " + mediaMunicao + "\n";
 			
 			double mediaAgua = rebeldesTotal.stream()
 					.filter(rebelde -> rebelde.isTraidor())
 					.mapToDouble(rebelde -> rebelde.getRecursos().get("agua").getQuantidade())
 					.sum();
-			result = result + "Agua: " + mediaAgua + "\n";
+			result = result + "   - Agua: " + mediaAgua + "\n";
 			
 			double mediaComidas = rebeldesTotal.stream()
 					.filter(rebelde -> rebelde.isTraidor())
 					.mapToDouble(rebelde -> rebelde.getRecursos().get("comida").getQuantidade())
 					.sum();
-			result = result + "Comida: " + mediaComidas + "\n";
+			result = result + "   - Comida: " + mediaComidas + "\n";
 			
-			result = result + "TOTAL: " + (mediaArmas + mediaAgua + mediaMunicao + mediaComidas);
+			result = result + "   - TOTAL: " + (mediaArmas + mediaAgua + mediaMunicao + mediaComidas);
 			
-			return result;
+			return result + "\n";
 			
 		}
 	}

@@ -76,4 +76,29 @@ public class RelatorioController {
 		
 	}
 	
+	/***
+	 * Relatorio completo.
+	 * 
+	 * GET /completo
+	 * 
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/completo")
+	public ResponseEntity<String> relatorioCompleto(){
+		
+		
+		String porcentagemTraidores = relatorio.porcentagemTraidores();
+
+		String porcentagemRebeldes = relatorio.porcentagemRebeldes();
+
+		String mediaRecursos = relatorio.mediaRecursos();
+		
+		String pontosPerdidos = relatorio.pontosPerdidosPorTraidores();
+		
+		String relatorio = "### RELATORIO COMPLETO ###\n";
+		relatorio = relatorio + porcentagemTraidores + porcentagemRebeldes + mediaRecursos + pontosPerdidos;
+		
+		return new ResponseEntity<String>(relatorio , HttpStatus.OK);
+		
+	}
+	
 }
