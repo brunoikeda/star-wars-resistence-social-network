@@ -1,11 +1,16 @@
 package com.letscode.starwarsresistencesocialnetwork.model.dao;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -34,9 +39,14 @@ public class Recurso {
 	private String nome;
 	
 	@JsonProperty("quantidade")
-	private Integer quantidade;
+	private Long quantidade;
 	
 	@JsonProperty("pontos")
-	private String pontos;
+	private Long pontos;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID_REBELDE")
+	@JsonBackReference
+	private Rebelde rebelde;
 
 }

@@ -10,23 +10,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @JsonInclude(Include.NON_NULL)
-public class RequestRecurso {
+public class RequestNegociacao {
 	
-	@JsonProperty("id")
-	private Long id;
+	@JsonProperty("rebelde1")
+	private RequestRebelde rebelde1;
 	
-	@JsonProperty("nome")
-	private String nome;
-	
-	@JsonProperty("quantidade")
-	private Long quantidade;
-	
-	@JsonProperty("pontos")
-	private Long pontos;
-
+	@JsonProperty("rebelde2")
+	private RequestRebelde rebelde2;
+		
 }

@@ -1,7 +1,7 @@
 package com.letscode.starwarsresistencesocialnetwork.model.dao;
 
 
-import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,12 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -45,8 +47,11 @@ public class Rebelde {
 	@JsonProperty("genero")
 	private String genero;
 	
+	@JsonProperty("reporte")
+	private Integer reporte;
+	
 	@JsonProperty("traidor")
-	private Boolean traidor;
+	private boolean traidor;
 	
 	@JsonProperty("localizacao")
 	@OneToOne(cascade = CascadeType.ALL)
@@ -54,8 +59,9 @@ public class Rebelde {
 	private Localizacao localizacao;
 	
 	@JsonProperty("recursos")
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="id")
-	private List<Recurso> recursos;
+	@OneToMany(mappedBy = "rebelde", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	@MapKey(name = "nome")
+	private Map<String, Recurso> recursos;
 	
 }

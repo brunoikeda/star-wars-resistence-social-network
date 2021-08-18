@@ -1,20 +1,60 @@
 package com.letscode.starwarsresistencesocialnetwork.controller;
 
-import javax.websocket.server.PathParam;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.letscode.starwarsresistencesocialnetwork.model.RequestNegociar;
+import com.letscode.starwarsresistencesocialnetwork.model.RequestNegociacao;
 import com.letscode.starwarsresistencesocialnetwork.model.RequestRebelde;
+import com.letscode.starwarsresistencesocialnetwork.model.dao.Negociacao;
+import com.letscode.starwarsresistencesocialnetwork.model.dao.Rebelde;
+import com.letscode.starwarsresistencesocialnetwork.service.RebeldeService;
 
 @RequestMapping("rebelde")
 @RestController
 public class RebeldeController {
+	
+	@Autowired
+	RebeldeService rebeldeService;
+	
+	/***
+	 * Busca todos os Rebeldes
+	 * 
+	 * GET /list
+	 * 
+	 * @return List<Rebelde>
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/list")
+	public ResponseEntity<List<Rebelde>> findAllRebelde(){
+		
+		List<Rebelde> rebeldeList = rebeldeService.findAllRebeldes();
+		
+		return new ResponseEntity<List<Rebelde>>(rebeldeList, HttpStatus.OK);
+		
+	}
+	
+	/***
+	 * Busca um rebelde especifico por ID
+	 * 
+	 * GET /{id}
+	 * 
+	 * @return List<Rebelde>
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/{id}")
+	public ResponseEntity<Rebelde> findRebelde(@PathVariable Long id){
+		
+		Rebelde rebelde = rebeldeService.findRebelde(id);
+		
+		return new ResponseEntity<Rebelde>(rebelde, HttpStatus.OK);
+		
+	}
 
 	/***
 	 * Adiciona um Rebelde
@@ -23,15 +63,14 @@ public class RebeldeController {
 	 * 
 	 * POST /novo
 	 * 
-	 * @param rebelde
 	 * @return rebelde
 	 */
 	@RequestMapping(method = RequestMethod.POST, path = "/novo")
-	public ResponseEntity<RequestRebelde> novo(@RequestBody RequestRebelde rebelde){
+	public ResponseEntity<Rebelde> novo(@RequestBody RequestRebelde reqRebelde){
 		
-		System.out.println(rebelde);
+		Rebelde rebelde = rebeldeService.novoRebelde(reqRebelde);
 		
-		return new ResponseEntity<RequestRebelde>(rebelde, HttpStatus.OK);
+		return new ResponseEntity<Rebelde>(rebelde, HttpStatus.OK);
 		
 	}
 	
@@ -45,11 +84,11 @@ public class RebeldeController {
 	 * @return rebelde
 	 */
 	@RequestMapping(method = RequestMethod.POST, path = "/atualiza/localizacao")
-	public ResponseEntity<RequestRebelde> atualizaLocalizacao(@RequestBody RequestRebelde rebelde){
+	public ResponseEntity<Rebelde> atualizaLocalizacao(@RequestBody RequestRebelde reqRebelde){
 		
-		System.out.println(rebelde);
+		Rebelde rebelde = rebeldeService.atualizaLocalizacao(reqRebelde);
 		
-		return new ResponseEntity<RequestRebelde>(rebelde, HttpStatus.OK);
+		return new ResponseEntity<Rebelde>(rebelde, HttpStatus.OK);
 		
 	}
 	
@@ -68,11 +107,11 @@ public class RebeldeController {
 	 * @return rebelde
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/reportar/traidor/{idRebelde}")
-	public ResponseEntity<RequestRebelde> novoRebelde(@PathParam("id") Long id){
+	public ResponseEntity<Rebelde> reportaTraidor(@PathVariable("idRebelde") Long id){
 		
-		System.out.println(id);
+		Rebelde rebelde = rebeldeService.reportarTraidor(id);
 		
-		return new ResponseEntity<RequestRebelde>(new RequestRebelde(), HttpStatus.OK);
+		return new ResponseEntity<Rebelde>(rebelde, HttpStatus.OK);
 		
 	}
 	
@@ -90,11 +129,11 @@ public class RebeldeController {
 	 * @return rebelde
 	 */
 	@RequestMapping(method = RequestMethod.POST, path = "/atualiza/traidor")
-	public ResponseEntity<RequestRebelde> novoRebelde(@RequestBody RequestRebelde rebelde){
+	public ResponseEntity<Rebelde> atualizaTraidor(@RequestBody RequestRebelde reqRebelde){
 		
-		System.out.println(rebelde);
+		Rebelde rebelde = rebeldeService.atualizarTraidor(reqRebelde);
 		
-		return new ResponseEntity<RequestRebelde>(rebelde, HttpStatus.OK);
+		return new ResponseEntity<Rebelde>(rebelde, HttpStatus.OK);
 		
 	}
 	
@@ -112,17 +151,17 @@ public class RebeldeController {
 	 * 1 Água		2 pontos
 	 * 1 Comida		1 ponto
 	 * 
-	 * POST /atualiza/traidor
+	 * POST /negocia/item
 	 * 
 	 * @param rebelde
 	 * @return rebelde
 	 */
 	@RequestMapping(method = RequestMethod.POST, path = "/negocia/item")
-	public ResponseEntity<RequestNegociar> negociarItens(@RequestBody RequestNegociar rebelde){
+	public ResponseEntity<Negociacao> negociarItens(@RequestBody RequestNegociacao reqNegociar){
 		
-		System.out.println(rebelde);
+		Negociacao negociar = rebeldeService.negociaItens(reqNegociar);
 		
-		return new ResponseEntity<RequestNegociar>(rebelde, HttpStatus.OK);
+		return new ResponseEntity<Negociacao>(negociar, HttpStatus.OK);
 		
 	}
 	

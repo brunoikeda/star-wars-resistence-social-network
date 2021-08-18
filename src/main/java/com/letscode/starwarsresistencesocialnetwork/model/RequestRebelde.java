@@ -32,7 +32,7 @@ public class RequestRebelde {
 	private String genero;
 	
 	@JsonProperty("traidor")
-	private Boolean traidor;
+	private boolean traidor;
 	
 	@JsonProperty("localizacao")
 	private RequestLocalizacao localizacao;
