@@ -1,20 +1,20 @@
 package com.letscode.starwarsresistencesocialnetwork.controller;
 
-import javax.websocket.server.PathParam;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.letscode.starwarsresistencesocialnetwork.model.RequestNegociacao;
-import com.letscode.starwarsresistencesocialnetwork.model.RequestRebelde;
+import com.letscode.starwarsresistencesocialnetwork.service.RelatorioService;
 
-@RequestMapping("rebelde")
+@RequestMapping("relatorio")
 @RestController
 public class RelatorioController {
+	
+	@Autowired
+	RelatorioService relatorio;
 
 	/***
 	 * Porcentagem de traidores.
@@ -23,11 +23,11 @@ public class RelatorioController {
 	 * 
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/porcentagem/traidores")
-	public ResponseEntity<Double> porcentagemTraidores(){
+	public ResponseEntity<String> porcentagemTraidores(){
 		
-		System.out.println("");
+		String porcentagemTraidores = relatorio.porcentagemTraidores();
 		
-		return new ResponseEntity<Double>(10.0 , HttpStatus.OK);
+		return new ResponseEntity<String>(porcentagemTraidores , HttpStatus.OK);
 		
 	}
 	
@@ -38,11 +38,11 @@ public class RelatorioController {
 	 * 
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/porcentagem/rebeldes")
-	public ResponseEntity<Double> porcentagemRebeldes(){
+	public ResponseEntity<String> porcentagemRebeldes(){
 		
-		System.out.println("");
+		String porcentagemRebeldes = relatorio.porcentagemRebeldes();
 		
-		return new ResponseEntity<Double>(10.0 , HttpStatus.OK);
+		return new ResponseEntity<String>(porcentagemRebeldes , HttpStatus.OK);
 		
 	}
 	
@@ -52,12 +52,12 @@ public class RelatorioController {
 	 * GET /quantidade/media/recursos
 	 * 
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/quantidade/media/recursoss")
-	public ResponseEntity<Double> quantidadeMediaRecursosPorRebelde(){
+	@RequestMapping(method = RequestMethod.GET, path = "/quantidade/media/recursos")
+	public ResponseEntity<String> quantidadeMediaRecursosPorRebelde(){
 		
-		System.out.println("");
+		String mediaRecursos = relatorio.mediaRecursos();
 		
-		return new ResponseEntity<Double>(10.0 , HttpStatus.OK);
+		return new ResponseEntity<String>(mediaRecursos , HttpStatus.OK);
 		
 	}
 	
@@ -68,11 +68,11 @@ public class RelatorioController {
 	 * 
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/pontos/perdidos")
-	public ResponseEntity<Double> pontosPerdidosPorTraidores(){
+	public ResponseEntity<String> pontosPerdidosPorTraidores(){
 		
-		System.out.println("");
+		String pontosPerdidos = relatorio.pontosPerdidosPorTraidores();
 		
-		return new ResponseEntity<Double>(10.0 , HttpStatus.OK);
+		return new ResponseEntity<String>(pontosPerdidos , HttpStatus.OK);
 		
 	}
 	

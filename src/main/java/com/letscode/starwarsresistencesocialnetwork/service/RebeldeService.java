@@ -51,7 +51,7 @@ public class RebeldeService {
 		if (rebeldes.isEmpty()) {
 			throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
 		}else {
-			return rebeldeRepository.findAll();
+			return rebeldes;
 		}
 	}
 
@@ -314,11 +314,11 @@ public class RebeldeService {
 		Map<String, Recurso> recursos = new HashMap<String, Recurso>();
 		for (RequestRecurso reqRecurso : reqRecursos) {
 			Recurso recurso = new Recurso();
-			recurso.setNome(reqRecurso.getNome());
+			recurso.setNome(reqRecurso.getNome().toLowerCase());
 			recurso.setPontos(recursoPoints.getPoints(reqRecurso.getNome()));
 			recurso.setQuantidade(reqRecurso.getQuantidade());
 			recurso.setRebelde(rebelde);
-			recursos.put(reqRecurso.getNome(), recurso);
+			recursos.put(reqRecurso.getNome().toLowerCase(), recurso);
 		}
 		
 		return recursos;

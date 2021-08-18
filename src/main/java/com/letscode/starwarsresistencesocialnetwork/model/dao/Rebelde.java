@@ -48,7 +48,7 @@ public class Rebelde {
 	private String genero;
 	
 	@JsonProperty("reporte")
-	private Integer reporte;
+	private int reporte;
 	
 	@JsonProperty("traidor")
 	private boolean traidor;
